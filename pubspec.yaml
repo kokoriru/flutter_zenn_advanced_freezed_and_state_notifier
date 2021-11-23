@@ -36,6 +36,9 @@ dependencies:
   freezed_annotation:
   json_serializable:
   json_annotation: ^4.3.0
+  state_notifier: ^0.7.1
+  flutter_state_notifier: ^0.7.1
+  provider: ^6.0.1
 
 dev_dependencies:
   flutter_test:
