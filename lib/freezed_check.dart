@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'user.dart';
 
 void func() {
@@ -28,4 +30,16 @@ void func() {
 
   // immutable を破壊するので、以下のような使い方は NG
   // user1.name = 'unknown';
+}
+
+void func2() {
+  // String->Map->User
+  String jsonString = '{"name":"ogiyu","age":30}';
+  User fromJsonUser = User.fromJson(json.decode(jsonString));
+  print(fromJsonUser);
+
+  // User->Map->String
+  User toJsonUser = User('ogiyu', 40);
+  Map<String, dynamic> jsonData = toJsonUser.toJson();
+  print(jsonData);
 }
