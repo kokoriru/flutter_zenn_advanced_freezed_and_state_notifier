@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 
 import 'freezed_check.dart';
+
+import 'MyValueSlider.dart';
+import 'MyValue.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +31,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: StateNotifierProvider<MyValueStateNotifier, MyValue>(
+        create: (_) => MyValueStateNotifier(),
+        child: MyHomePage(title: 'Flutter Demo Home Page'),
+      )
     );
   }
 }
@@ -97,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
             const Text(
               'You have pushed the button this many times:',
             ),
@@ -105,6 +113,12 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            Text(
+              context
+                .select<MyValue, double>((state) => state.value)
+                .toStringAsFixed(2),
+              style: TextStyle(fontSize: 100)),
+            MyValueSlider()
           ],
         ),
       ),
